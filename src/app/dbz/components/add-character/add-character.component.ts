@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Character } from '../../interfaces/character.interface';
 
 @Component({
   selector: 'dbz-add-character',
@@ -7,4 +8,32 @@ import { Component } from '@angular/core';
 })
 export class AddCharacterComponent {
 
+  @Output()
+  public onNewCharacter: EventEmitter<Character> = new EventEmitter();
+
+  public character: Character = {
+    id: '',
+    name: '',
+    power: 0,
+  };
+
+  emitCharacter() {
+
+    if (this.character.name.trim().length === 0) {
+      return;
+    }
+
+    this.onNewCharacter.emit(this.character);
+
+    // this.character.name = '';
+    // this.character.power = 0;
+    this.character = {
+      id: '',
+      name: '',
+      power: 0,
+    };
+  }
+
+  
+  
 }
